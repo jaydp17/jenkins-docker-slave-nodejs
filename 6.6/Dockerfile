@@ -3,6 +3,12 @@ FROM jaydp17/jenkins-slave
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 6.6.0
 
+# `node-gyp rebuild` requires python
+RUN apt-get update && apt-get install -y --no-install-recommends python2.7 \
+  && apt-get -q autoremove \
+  && apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin \
+  && ln -s /usr/bin/python2.7 /usr/bin/python
+
 # gpg keys listed at https://github.com/nodejs/node#release-team
 RUN set -ex \
   && for key in \
