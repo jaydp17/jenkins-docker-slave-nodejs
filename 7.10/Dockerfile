@@ -28,4 +28,5 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
   # install Yarn
-  && curl -o- -L https://yarnpkg.com/install.sh | bash
+  && su - jenkins -c "curl -o- -L https://yarnpkg.com/install.sh | bash" \
+  && ln -s /home/jenkins/.yarn/bin/yarn /usr/local/bin/yarn
