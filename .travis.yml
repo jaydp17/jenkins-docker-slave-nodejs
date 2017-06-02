@@ -11,3 +11,9 @@ script:
   - docker build -t jaydp17/jenkins-slave-nodejs:$CI_NODE_VERSION $CI_NODE_VERSION
   - docker run --user jenkins jaydp17/jenkins-slave-nodejs:$CI_NODE_VERSION bash -c "yarn global add grunt-cli"
   - docker run --user jenkins jaydp17/jenkins-slave-nodejs:$CI_NODE_VERSION bash -c "npm i -g eslint"
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push jaydp17/jenkins-slave-nodejs:$CI_NODE_VERSION;
+    fi
