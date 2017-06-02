@@ -3,9 +3,13 @@ sudo: required
 services:
   - docker
 
-before_install:
-  - docker build -t jaydp17/jenkins-slave-nodejs:7.10 7.10
+env:
+  - CI_NODE_VERSION: 6.6
+  - CI_NODE_VERSION: "7.10"
+
+# before_install:
 
 script:
-  - docker run --user jenkins jaydp17/jenkins-slave-nodejs:7.10 bash -c "yarn global add grunt-cli"
-  - docker run --user jenkins jaydp17/jenkins-slave-nodejs:7.10 bash -c "npm i -g eslint"
+  - docker build -t jaydp17/jenkins-slave-nodejs:$CI_NODE_VERSION $CI_NODE_VERSION
+  - docker run --user jenkins jaydp17/jenkins-slave-nodejs:$CI_NODE_VERSION bash -c "yarn global add grunt-cli"
+  - docker run --user jenkins jaydp17/jenkins-slave-nodejs:$CI_NODE_VERSION bash -c "npm i -g eslint"
