@@ -32,7 +32,14 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && grep " node-v$NODE_VERSION-linux-x64.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
   && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
-  && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
-  # install Yarn
-  && su - jenkins -c "curl -o- -L https://yarnpkg.com/install.sh | bash" \
-  && ln -s /home/jenkins/.yarn/bin/yarn /usr/local/bin/yarn
+  && ln -s /usr/local/bin/node /usr/local/bin/nodejs
+
+USER jenkins
+
+COPY .npmrc /home/jenkins/.npmrc
+
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash \
+  && npm i -g npm
+
+# add the path to yarn and global npm modules
+ENV PATH /home/jenkins/.yarn/bin:/home/jenkins/.npm-packages/bin:$PATH
