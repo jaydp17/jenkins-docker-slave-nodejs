@@ -22,6 +22,12 @@ If you want to add/ install any more dependencies, you can use this image as bas
 # Dockerfile
 FROM jaydp17/jenkins-slave-nodejs:7.10
 
-# your dependencies/configs go here
+USER root
+
+# install other dependencies your have over here
+# RUN apt-get update && apt-get install -y ruby ruby-compass
+
+# set the user back to jenkins (not sure, but if you don't do this, the $PATH var doesn't pickup /home/jenkins/.npm-packages/bin)
+USER jenkins
 
 ```
