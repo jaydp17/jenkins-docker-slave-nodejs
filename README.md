@@ -14,7 +14,7 @@ Thus it can be used to build node.js projects. It also provides a conenient way 
 ### Direct way
 Go to `https://<your-jenkins>.com/configure` and directly give `jaydp17/jenkins-slave-nodejs:7.10` as the image in `Docker Image Name`
 
-![Screenshot](screenshot.png)
+![Screenshot](https://s30.postimg.org/jsxmvhuo1/screenshot.png)
 
 ### Modify the image
 If you want to add/ install any more dependencies, you can use this image as base.
