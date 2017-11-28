@@ -6,6 +6,7 @@ services:
 env:
   - CI_NODE_VERSION: 6.6
   - CI_NODE_VERSION: "7.10"
+  - CI_NODE_VERSION: 8.9
 
 script:
   - docker build -t jaydp17/jenkins-slave-nodejs:$CI_NODE_VERSION $CI_NODE_VERSION
